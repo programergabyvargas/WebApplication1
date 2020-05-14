@@ -21,7 +21,9 @@ namespace WebApplication1.Models
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				string sql = $"INSERT INTO inquilinos (Nombre, Apellido, Dni, Telefono, Email) " +
-					$"VALUES ( @nombre, @apellido, @dni, @telefono, @email)";
+							 "VALUES (@nombre, @apellido, @dni, @telefono, @email);" +
+							 "SELECT SCOPE_IDENTITY();"; 
+					         
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
@@ -31,10 +33,9 @@ namespace WebApplication1.Models
 					command.Parameters.AddWithValue("@telefono", e.Telefono);
 					command.Parameters.AddWithValue("@email", e.Email);
 					connection.Open();
-					res = command.ExecuteNonQuery();
-                    command.CommandText = "SELECT SCOPE_IDENTITY()";
-                    e.IdInquilino = (int)command.ExecuteScalar();
-                    connection.Close();
+					res = Convert.ToInt32(command.ExecuteScalar());
+					e.IdInquilino = res;
+					connection.Close();
 				}
 			}
 			return res;

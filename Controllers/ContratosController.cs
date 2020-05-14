@@ -39,7 +39,8 @@ namespace WebApplication1.Controllers
         // GET: Contratos/Create
         public ActionResult Create()
         {
-            ViewBag.Contratos = repositorioContrato.ObtenerTodos();
+            ViewBag.Inmuebles = repositorioInmueble.ObtenerTodos();
+            ViewBag.Inquilinos = repositorioInquilino.ObtenerTodos();
             return View();
         }
 
@@ -76,7 +77,9 @@ namespace WebApplication1.Controllers
             try
             {
                 var e = repositorioContrato.ObtenerPorId(id);
-                
+               // ViewBag.Inmueble = repositorioInmueble.ObtenerTodos();
+               // ViewBag.Inquilino = repositorioInquilino.ObtenerTodos();
+
                 return View(e);
             }
             catch (Exception ex)
@@ -135,5 +138,21 @@ namespace WebApplication1.Controllers
                 return View();
             }
         }
+
+        public ActionResult ContratosVigentes(DateTime FechaInicio, DateTime FechaFin)
+        {
+            try
+            {
+                var lista = repositorioContrato.ObtenerVigentes(FechaInicio,FechaFin);
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+
+        
     }
 }

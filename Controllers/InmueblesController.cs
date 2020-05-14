@@ -14,12 +14,15 @@ namespace WebApplication1.Controllers
         private readonly IConfiguration configuration;
         private readonly RepositorioPropietario repositorioPropietario;
         private readonly RepositorioInmueble repositorioInmueble;
+        private readonly RepositorioContrato repositorioContrato;
+
 
         public InmueblesController(IConfiguration configuration)
         {
             this.configuration = configuration;
             repositorioInmueble = new RepositorioInmueble(configuration);
             repositorioPropietario = new RepositorioPropietario(configuration);
+            repositorioContrato = new RepositorioContrato(configuration);
         }
 
         // GET: Inmueble
@@ -39,10 +42,12 @@ namespace WebApplication1.Controllers
         // GET: Inmueble/Create
         public ActionResult Create()
         {
-            ViewBag.Propietarios = repositorioPropietario.ObtenerTodos();
+            var p = repositorioPropietario.ObtenerTodos();
+            ViewBag.Propietarios = p;
             return View();
         }
 
+      
         // POST: Inmueble/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,6 +73,7 @@ namespace WebApplication1.Controllers
                 ViewBag.StackTrate = ex.StackTrace;
                 return View(entidad);
             }
+
         }
 
         // GET: Inmueble/Edit/5
@@ -138,5 +144,44 @@ namespace WebApplication1.Controllers
                 return View();
             }
         }
+
+        public ActionResult MostrarInmueblesPorPropietario(int id)
+        {
+            try
+            {
+                var lista = repositorioInmueble.BuscarPorPropietario(id);
+                ViewBag.IdPropietario = id;
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+
+        
+         public ActionResult FiltrarPorDisponibles()
+        {
+            try
+            {
+                var lista = repositorioInmueble.MostrarDisponibles();
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult ListarContratos(int id)
+        {
+            var lista = repositorioContrato.BuscarPorInmueble(id);
+            return View(lista);
+        }
+
+        
+
     }
 }

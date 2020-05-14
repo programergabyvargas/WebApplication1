@@ -83,7 +83,6 @@ namespace WebApplication1.Controllers
             try
             {
                 // TODO: Add insert logic here
-                //var e = repositorio.ObtenerPorId(id);
                 int res = repositorio.Modificacion(e);
                 return RedirectToAction(nameof(Index));
             }

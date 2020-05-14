@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
-    public class RepositorioPropietario
+    public class RepositorioPropietario: RepositorioBase, IRepositorio<Propietario>
     {
-		private readonly string connectionString;
-		private readonly IConfiguration configuration;
+		//private readonly string connectionString;
+		//private readonly IConfiguration configuration;
 
-		public RepositorioPropietario(IConfiguration configuration) 
+		public RepositorioPropietario(IConfiguration configuration) : base(configuration)
 		{
-			this.configuration = configuration;
-			connectionString = configuration["ConnectionStrings:DefaultConnection"];
+
 		}
 
 		public int Alta(Propietario p)
@@ -67,7 +66,7 @@ namespace WebApplication1.Models
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				string sql = $"UPDATE Propietarios SET Nombre=@nombre, Apellido=@apellido, Dni=@dni, Telefono=@telefono, Email=@email, Clave=@clave " +
-					$"WHERE IdPropietario = @id";
+					         $"WHERE IdPropietario = @id";
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
@@ -91,8 +90,8 @@ namespace WebApplication1.Models
 			IList<Propietario> res = new List<Propietario>();
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				string sql = $"SELECT IdPropietario, Nombre, Apellido, Dni, Telefono, Email, Clave" +
-					$" FROM Propietarios";
+				string sql = $"SELECT IdPropietario, Nombre, Apellido, Dni, Telefono, Email, Clave " +
+					         "FROM Propietarios";
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
@@ -124,7 +123,7 @@ namespace WebApplication1.Models
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				string sql = $"SELECT IdPropietario, Nombre, Apellido, Dni, Telefono, Email, Clave FROM Propietarios" +
-					$" WHERE IdPropietario=@id";
+					         $" WHERE IdPropietario=@id";
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.Parameters.Add("@id", SqlDbType.Int).Value = id;

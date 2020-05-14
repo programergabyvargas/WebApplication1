@@ -20,15 +20,14 @@ namespace WebApplication1.Models
 			int res = -1;
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				string sql = $"INSERT INTO Usuarios (Nombre, Apellido, Avatar, Email, Clave, Rol) " +
-					$"VALUES (@nombre, @apellido, @avatar, @email, @clave, @rol);" +
-					"SELECT SCOPE_IDENTITY();";//devuelve el id insertado (LAST_INSERT_ID para mysql)
+				string sql = $"INSERT INTO Usuarios (Nombre, Apellido, Email, Clave, Rol) " +
+					         $"VALUES (@nombre, @apellido,  @email, @clave, @rol);" +
+					         "SELECT SCOPE_IDENTITY();";//devuelve el id insertado (LAST_INSERT_ID para mysql)
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
 					command.Parameters.AddWithValue("@nombre", e.Nombre);
 					command.Parameters.AddWithValue("@apellido", e.Apellido);
-					command.Parameters.AddWithValue("@avatar", e.Avatar);
 					command.Parameters.AddWithValue("@email", e.Email);
 					command.Parameters.AddWithValue("@clave", e.Clave);
 					command.Parameters.AddWithValue("@rol", e.Rol);
@@ -62,17 +61,16 @@ namespace WebApplication1.Models
 			int res = -1;
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				string sql = $"UPDATE Usuarios SET Nombre=@nombre, Apellido=@apellido, Avatar=@avatar, Email=@email, Clave=@clave, Rol=@rol " +
+				string sql = $"UPDATE Usuarios SET Nombre=@nombre, Apellido=@apellido, Email=@email, Clave=@clave " +
 					$"WHERE Id = @id";
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
 					command.Parameters.AddWithValue("@nombre", e.Nombre);
 					command.Parameters.AddWithValue("@apellido", e.Apellido);
-					command.Parameters.AddWithValue("@avatar", e.Avatar);
 					command.Parameters.AddWithValue("@email", e.Email);
 					command.Parameters.AddWithValue("@clave", e.Clave);
-					command.Parameters.AddWithValue("@rol", e.Rol);
+					
 					command.Parameters.AddWithValue("@id", e.Id);
 					connection.Open();
 					res = command.ExecuteNonQuery();
@@ -87,8 +85,8 @@ namespace WebApplication1.Models
 			IList<Usuario> res = new List<Usuario>();
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				string sql = $"SELECT Id, Nombre, Apellido, Avatar, Email, Clave, Rol" +
-                    $" FROM Usuarios";
+				string sql = $"SELECT Id,Nombre,Apellido,Email,Clave,Rol " +
+                             $"FROM Usuarios";
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
@@ -101,10 +99,9 @@ namespace WebApplication1.Models
 							Id = reader.GetInt32(0),
 							Nombre = reader.GetString(1),
 							Apellido = reader.GetString(2),
-							Avatar = reader["Avatar"].ToString(),
-							Email = reader.GetString(4),
-							Clave = reader.GetString(5),
-							Rol = reader.GetInt32(6),
+							Email = reader.GetString(3),
+							Clave = reader.GetString(4),
+							Rol = reader.GetInt32(5),
 						};
 						res.Add(e);
 					}
@@ -119,8 +116,8 @@ namespace WebApplication1.Models
 			Usuario e = null;
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				string sql = $"SELECT Id, Nombre, Apellido, Avatar, Email, Clave, Rol FROM Usuarios" +
-					$" WHERE Id=@id";
+				string sql = $"SELECT Id, Nombre, Apellido, Email, Clave, Rol FROM Usuarios" +
+					         $" WHERE Id=@id";
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
                     command.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -134,10 +131,9 @@ namespace WebApplication1.Models
 							Id = reader.GetInt32(0),
 							Nombre = reader.GetString(1),
 							Apellido = reader.GetString(2),
-							Avatar = reader["Avatar"].ToString(),
-							Email = reader.GetString(4),
-							Clave = reader.GetString(5),
-							Rol = reader.GetInt32(6),
+							Email = reader.GetString(3),
+							Clave = reader.GetString(4),
+							Rol = reader.GetInt32(5),
 						};
 					}
 					connection.Close();

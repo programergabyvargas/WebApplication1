@@ -21,16 +21,15 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand text-danger" asp-area="" asp-controller="Home" asp-action="Index">Inmobiliaria</a>
+                
+                <a class="navbar-brand text-danger" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/iconoInmobiliaria.png" alt="Inmobiliaria" height="42" width="42"> Inmobiliaria</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" >
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-                        </li>
+                       
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Inquilinos" asp-action="Index">Inquilinos</a>
                         </li>
@@ -46,6 +45,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Pagos" asp-action="Index">Pagos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -60,7 +62,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Primer Aplicación - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+          
         </div>
     </footer>
 

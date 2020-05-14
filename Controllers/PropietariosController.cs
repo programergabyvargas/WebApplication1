@@ -13,10 +13,12 @@ namespace WebApplication1.Controllers
     {
         private readonly IConfiguration configuration;
         private readonly RepositorioPropietario repositorioPropietario;
+        private readonly RepositorioInmueble repositorioInmueble;
         public PropietariosController(IConfiguration configuration)
         {
             this.configuration = configuration;
             repositorioPropietario = new RepositorioPropietario(configuration);
+            repositorioInmueble = new RepositorioInmueble(configuration);
         }
         // GET: Propietarios
         public ActionResult Index()
@@ -43,8 +45,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create(Propietario p)
         {
             try
-            {
-                // TODO: Add insert logic here
+            {   // TODO: Add insert logic here
                 int res = repositorioPropietario.Alta(p);
                 return RedirectToAction(nameof(Index));
             }
@@ -77,7 +78,6 @@ namespace WebApplication1.Controllers
             try
             {
                 // TODO: Add insert logic here
-                //var e = repositorio.ObtenerPorId(id);
                 int res = repositorioPropietario.Modificacion(e);
                 return RedirectToAction(nameof(Index));
             }
@@ -119,5 +119,7 @@ namespace WebApplication1.Controllers
                 return View();
             }
         }
+
+      
     }
 }

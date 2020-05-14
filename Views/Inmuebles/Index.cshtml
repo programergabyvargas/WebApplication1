@@ -7,14 +7,12 @@
 <h1>Inmuebles</h1>
 
 <p>
-    <a asp-action="Create">Crear Nuevo</a>
+    <a type="button" class="btn btn-success" asp-action="Create">Crear Nuevo</a>   <a type="button" class="btn btn-primary"  asp-action="FiltrarPorDisponibles">Disponibles</a> 
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdInmueble)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Direccion)
             </th>
@@ -30,8 +28,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Longitud)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.IdPropietario)
+            </th>
+            <th>
+                Disponibile
             </th>
             <th></th>
         </tr>
@@ -39,9 +41,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdInmueble)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Direccion)
             </td>
@@ -61,8 +61,12 @@
                 @(item.Duenio.Nombre + " " + item.Duenio.Apellido)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new {  id=item.IdInmueble }) |
-                @Html.ActionLink("Eliminar", "Delete", new {  id=item.IdInmueble })
+                @Html.DisplayFor(modelItem => item.Disponible) 
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.IdInmueble }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdInmueble })|
+                @Html.ActionLink("Contratos", "ListarContratos", new { id = item.IdInmueble })
             </td>
         </tr>
 }

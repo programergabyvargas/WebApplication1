@@ -24,5 +24,7 @@ namespace WebApplication1.Models
         public int IdPropietario { get; set; }
         [ForeignKey("IdPropietario")]
         public Propietario Duenio { get; set; }
-    }
+		[Required]
+		public bool Disponible { get; set; }
+	}
 }

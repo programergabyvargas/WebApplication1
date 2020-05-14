@@ -7,14 +7,12 @@
 <h1>Propietarios</h1>
 
 <p>
-    <a asp-action="Create">Crear Nuevo</a>
+    <a type="button" class="btn btn-success" asp-action="Create">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdPropietario)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -36,9 +34,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPropietario)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
@@ -56,7 +52,9 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdPropietario" title="Editar"><span class="lnr lnr-pencil"></span>Editar</a>&nbsp;
-                <a asp-action="Delete" asp-route-id="@item.IdPropietario" title="Eliminar"><span class="lnr lnr-cross"></span>Eliminar</a>
+                <a asp-action="Delete" asp-route-id="@item.IdPropietario" title="Eliminar"><span class="lnr lnr-cross"></span>Eliminar</a>&nbsp;
+                <!--<a asp-action="MostrarInmueblesPorPropietario" asp-route-id="item.IdPropietario" title="MostarInmueble"><span class="lnr lnr-cross"></span>MostrarInmuebles</a>-->
+                @Html.ActionLink("Ver Inmuebles", "MostrarInmueblesPorPropietario", "Inmuebles", new { id = item.IdPropietario })
             </td>
         </tr>
 }

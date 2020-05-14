@@ -21,8 +21,11 @@ namespace WebApplication1.Models
         public int MontoMensual { get; set; }
         public int IdInmueble { get; set; }
         [ForeignKey("IdInmueble")]
-        public int IdInquilino { get; set; }
+        public Inmueble PropiedadAlquilada { get; set; }
         
+        public int IdInquilino { get; set; }
+        [ForeignKey("IdInquilino")]
+        public Inquilino Locatario { get; set; }
 
     }
 }

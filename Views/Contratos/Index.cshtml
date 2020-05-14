@@ -7,14 +7,16 @@
 <h1>Contratos</h1>
 
 <p>
-    <a asp-action="Create">Crear Nuevo</a>
+    <a type="button" class="btn btn-success" asp-action="Create">Crear Nuevo</a>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+
+    <label for="start">Fecha Inicio:</label> <input type="datetime" id="FechaInicio" name="FechaInicio"  >
+    <label for="start">Fecha Fin:</label> <input type="datetime" id="FechaFin" name="FechaFin" >
+    <a type="button" class="btn btn-info" asp-action="ContratosVigentes">Buscar</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdContrato)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.FechaInicio)
             </th>
@@ -25,40 +27,44 @@
                 @Html.DisplayNameFor(model => model.MontoMensual)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdInmueble)
+                Propiedad
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdInquilino)
+                Inquilino
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdContrato)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaFin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MontoMensual)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdInmueble)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdInquilino)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new {  id=item.IdContrato }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id=item.IdContrato })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaFin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MontoMensual)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PropiedadAlquilada.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locatario.Apellido)
+                    @Html.DisplayFor(modelItem => item.Locatario.Nombre)
+                </td>
+
+                <td>
+
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdContrato }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdContrato }) |
+                    @Html.ActionLink("Pagar", "Create", "Pagos", new { id = item.IdContrato }) |
+                    @Html.ActionLink("Ver Pagos", "PorContrato", "Pagos", new { id = item.IdContrato }) |
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

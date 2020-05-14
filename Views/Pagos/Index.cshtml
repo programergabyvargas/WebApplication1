@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication1.Models.Pago>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Pagos</h1>
+
+<p>
+    <a asp-action="Create">Crear Nuevo Pago</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NroPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Importe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdContrato)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Importe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdContrato)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new {  id=item.IdPago  }) |
+                @Html.ActionLink("Eliminar", "Delete", new {  id=item.IdPago  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
