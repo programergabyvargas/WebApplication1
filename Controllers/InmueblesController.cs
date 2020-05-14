@@ -6,9 +6,11 @@ using WebApplication1.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class InmueblesController : Controller
     {
         private readonly IConfiguration configuration;

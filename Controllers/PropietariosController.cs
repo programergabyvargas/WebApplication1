@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +12,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class PropietariosController : Controller
     {
         private readonly IConfiguration configuration;
@@ -41,7 +45,6 @@ namespace WebApplication1.Controllers
 
         // POST: Propietarios/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(Propietario p)
         {
             try
