@@ -147,8 +147,8 @@ namespace WebApplication1.Models
             Usuario e = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"SELECT Id, Nombre, Apellido, Avatar, Email, Clave, Rol FROM Usuarios" +
-                    $" WHERE Email=@email";
+                string sql = $"SELECT Id, Nombre, Apellido, Email, Clave, Rol FROM Usuarios " +
+                            $"WHERE Email=@email";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -162,10 +162,10 @@ namespace WebApplication1.Models
                             Id = reader.GetInt32(0),
                             Nombre = reader.GetString(1),
                             Apellido = reader.GetString(2),
-                            Avatar = reader["Avatar"].ToString(),
-                            Email = reader.GetString(4),
-                            Clave = reader.GetString(5),
-							Rol = reader.GetInt32(6),
+                            //Avatar = reader["Avatar"].ToString(),
+                            Email = reader.GetString(3),
+                            Clave = reader.GetString(4),
+							Rol = reader.GetInt32(5),
 						};
                     }
                     connection.Close();

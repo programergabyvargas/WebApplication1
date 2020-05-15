@@ -52,7 +52,7 @@ namespace WebApplication1.Controllers
       
         // POST: Inmueble/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Create(Inmueble entidad)
         {
             try
@@ -96,7 +96,7 @@ namespace WebApplication1.Controllers
 
         // POST: Inmueble/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Edit(int id, Inmueble e)
         {
 
@@ -114,6 +114,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Inmueble/Eliminar/5
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id)
         {
             try
@@ -130,7 +131,7 @@ namespace WebApplication1.Controllers
 
         // POST: Inmueble/Eliminar/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id, Inmueble entidad)
         {
             try
@@ -183,7 +184,21 @@ namespace WebApplication1.Controllers
             return View(lista);
         }
 
-        
+        public ActionResult InmueblesDesocupadosSegunContrato(DateTime FechaInicio , DateTime FechaFin)
+        {
+            try
+            {
+                var lista = repositorioInmueble.ListarInmueblesNoOcupados(FechaInicio, FechaFin);
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+
+
 
     }
 }

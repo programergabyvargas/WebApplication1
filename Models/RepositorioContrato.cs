@@ -135,7 +135,7 @@ namespace WebApplication1.Models
             Contrato entidad = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"SELECT IdContrato, FechaInicio, FechaFin, MontoMensual, c.IdInmueble, c.IdInquilino, i.Direccion, l.Apellido " +
+                string sql = $"SELECT IdContrato, FechaInicio, FechaFin, MontoMensual, c.IdInmueble, c.IdInquilino, i.Direccion, l.Apellido, l.Nombre " +
                               "FROM contratos c " +
                               "INNER JOIN inmuebles i ON c.IdInmueble = i.IdInmueble " +
                               "INNER JOIN inquilinos l ON c.IdInquilino = l.IdInquilino " +
@@ -166,6 +166,7 @@ namespace WebApplication1.Models
                             {
                                 IdInquilino = reader.GetInt32(5),
                                 Apellido = reader.GetString(7),
+                                Nombre = reader.GetString(8),
                             }
                         };
                     }
@@ -250,8 +251,14 @@ namespace WebApplication1.Models
             {
                 string sql = $"SELECT * " +
                              $"FROM contratos c " +
-                             "WHERE c.FechaInicio BETWEEN @fechaInicio AND @fechaFin"; 
-                           
+                             "WHERE (c.FechaInicio BETWEEN @fechaInicio AND @fechaFin) " +
+                             "OR " +
+                             "( c.FechaFin BETWEEN @fechaInicio AND @fechaFin) " +
+                              "OR " +
+                             "( @fechaInicio BETWEEN c.FechaInicio AND c.FechaFin) " +
+
+                             "OR ( @fechaFin BETWEEN c.FechaInicio AND c.FechaFin)";
+
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.Add("@fechaInicio", SqlDbType.Date).Value = FechaInicio;

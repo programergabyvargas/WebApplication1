@@ -10,7 +10,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ContratosController : Controller
     {
         private readonly IConfiguration configuration;
@@ -110,6 +110,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Contratos/Delete/5
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id)
         {
             try
@@ -126,7 +127,7 @@ namespace WebApplication1.Controllers
 
         // POST: Contratos/Delete/5
         [HttpPost]
-        
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id, Contrato e)
         {
             try

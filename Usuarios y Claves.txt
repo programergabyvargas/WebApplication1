@@ -1,0 +1,25 @@
+
+user: gaby@gmail.com  //SuperAdministrador
+pass: 123
+
+user: admin@admin.com //Administrador
+pas:123
+
+user: empleado@gmail.com //Usuario
+pas:123
+
+
+
+
+
+SELECT i.IdInmueble
+FROM inmuebles i
+WHERE  NOT EXISTS
+(
+SELECT c.IdInmueble
+FROM contratos c
+WHERE (c.FechaInicio BETWEEN '2020-05-15' AND '2020-05-20')
+ OR (c.FechaFin BETWEEN '2020-05-15' AND '2020-05-20') 
+ OR ( '2020-05-15' BETWEEN c.FechaInicio AND c.FechaFin) 
+ OR ( '2020-05-20' BETWEEN c.FechaInicio AND c.FechaFin)
+ );

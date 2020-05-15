@@ -6,21 +6,16 @@
 
 <h1>Contratos</h1>
 
-
-
-    <a type="button" class="btn btn-success" asp-action="Create">Crear Nuevo</a>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-    
+    <a type="button" class="btn btn-success" asp-action="Create">Crear Nuevo</a>&nbsp;<br />
     <form asp-action="ContratosVigentes">
        <label for="start">Fecha Inicio:</label> <input type="date" id="FechaInicio" name="FechaInicio">
         <label for="start">Fecha Fin:</label> <input type="date" id="FechaFin" name="FechaFin">
         <button type="submit" class="btn btn-info" >Buscar</button>
     </form>
 
-
 <table class="table">
     <thead>
         <tr>
-
             <th>
                 @Html.DisplayNameFor(model => model.FechaInicio)
             </th>
@@ -43,7 +38,6 @@
         @foreach (var item in Model)
         {
             <tr>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaInicio)
                 </td>

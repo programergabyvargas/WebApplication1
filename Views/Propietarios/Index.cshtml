@@ -28,7 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -51,8 +51,8 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPropietario" title="Editar"><span class="lnr lnr-pencil"></span>Editar</a>&nbsp;
-                <a asp-action="Delete" asp-route-id="@item.IdPropietario" title="Eliminar"><span class="lnr lnr-cross"></span>Eliminar</a>&nbsp;
+                <a asp-action="Edit" asp-route-id="@item.IdPropietario" title="Editar"><span class="lnr lnr-pencil"></span>Editar</a>&nbsp;|
+                <a asp-action="Delete" asp-route-id="@item.IdPropietario" title="Eliminar"><span class="lnr lnr-cross"></span>Eliminar</a>&nbsp;|
                 <!--<a asp-action="MostrarInmueblesPorPropietario" asp-route-id="item.IdPropietario" title="MostarInmueble"><span class="lnr lnr-cross"></span>MostrarInmuebles</a>-->
                 @Html.ActionLink("Ver Inmuebles", "MostrarInmueblesPorPropietario", "Inmuebles", new { id = item.IdPropietario })
             </td>

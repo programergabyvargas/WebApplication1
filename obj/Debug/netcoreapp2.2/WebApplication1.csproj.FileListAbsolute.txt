@@ -52,7 +52,6 @@ C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp2
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.pdb
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.Views.dll
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\WebApplication1.Views.pdb
-C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csprojAssemblyReference.cache
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csproj.CoreCompileInputs.cache
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorAssemblyInfo.cache
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.RazorAssemblyInfo.cs
@@ -112,3 +111,6 @@ C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Inmuebles\FiltrarPorDisponibles.cshtml.g.cs
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Inmuebles\ListarContratos.cshtml.g.cs
 C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Contratos\ContratosVigentes.cshtml.g.cs
+C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Usuarios\Delete.cshtml.g.cs
+C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\WebApplication1.csprojAssemblyReference.cache
+C:\Users\Gaby\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Razor\Views\Inmuebles\InmueblesDesocupadosSegunContrato.cshtml.g.cs

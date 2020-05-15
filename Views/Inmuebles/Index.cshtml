@@ -6,9 +6,22 @@
 
 <h1>Inmuebles</h1>
 
-<p>
-    <a type="button" class="btn btn-success" asp-action="Create">Crear Nuevo</a>   <a type="button" class="btn btn-primary"  asp-action="FiltrarPorDisponibles">Disponibles</a> 
-</p>
+<a type="button" class="btn btn-success" asp-action="Create">Crear Nuevo</a>   <a type="button" class="btn btn-primary" asp-action="FiltrarPorDisponibles">Disponibles</a>
+<br />
+<br />
+<br />
+
+ 
+<form asp-action="InmueblesDesocupadosSegunContrato">
+    <label for="start">Fecha Inicio:</label> <input type="date" id="FechaInicio" name="FechaInicio">
+    <label for="start">Fecha Fin:</label> <input type="date" id="FechaFin" name="FechaFin">
+    <button type="submit" class="btn btn-info">Buscar</button>
+
+</form>
+<div class="alert alert-primary" role="alert" col-md-4 col-md-offset-4>
+    Buscar Inmuebles que no estén ocupados en algún contrato entre las fechas ingresadas
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -39,36 +52,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model)
+        {
+            <tr>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ambientes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Superficie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitud)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitud)
-            </td>
-            <td>
-                @(item.Duenio.Nombre + " " + item.Duenio.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Disponible) 
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.IdInmueble }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdInmueble })|
-                @Html.ActionLink("Contratos", "ListarContratos", new { id = item.IdInmueble })
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ambientes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Superficie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Latitud)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Longitud)
+                </td>
+                <td>
+                    @(item.Duenio.Nombre + " " + item.Duenio.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disponible)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdInmueble }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdInmueble })|
+                    @Html.ActionLink("Contratos", "ListarContratos", new { id = item.IdInmueble })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

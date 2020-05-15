@@ -22,6 +22,7 @@ namespace WebApplication1.Controllers
             repositorioPropietario = new RepositorioPropietario(configuration);
             this.configuration = configuration;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             ViewBag.Titulo = "Página de Inicio";

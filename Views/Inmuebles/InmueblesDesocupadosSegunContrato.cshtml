@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WebApplication1.Models.Inmueble>
+
+@{
+    ViewData["Title"] = "Inmuebles desocupados Segun los contratos vigentes";
+}
+
+<h1> Inmuebles que no están ocupados en algún contrato entre las fechas Ingresadas.</h1>
+
+<br/>
+<br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+               Dirección
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ambientes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Superficie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPropietario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disponible)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ambientes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Superficie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitud)
+            </td>
+            <td>
+                @(item.Duenio.Nombre + " " + item.Duenio.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disponible)
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>

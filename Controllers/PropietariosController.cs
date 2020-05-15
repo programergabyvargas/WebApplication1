@@ -75,7 +75,7 @@ namespace WebApplication1.Controllers
 
         // POST: Propietarios/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Edit(int id, Propietario e)
         {
             try
@@ -92,6 +92,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Propietarios/Delete/5
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id)
         {
             try
@@ -108,7 +109,7 @@ namespace WebApplication1.Controllers
 
         // POST: Propietarios/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id, Propietario e)
         {
             try

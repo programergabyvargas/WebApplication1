@@ -30,8 +30,7 @@ namespace WebApplication1.Controllers
             this.repositorio = repositorio;
         }
         // GET: Usuarios
-        // [Authorize(Policy = "Administrador")]
-        [AllowAnonymous]
+        [Authorize(Policy = "Administrador")]        
         public ActionResult Index()
         {
             var usuarios = repositorio.ObtenerTodos();
@@ -39,7 +38,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Usuarios/Details/5
-        [Authorize(Policy = "Administrador")]
+        
         public ActionResult Details(int id)
         {
             var e = repositorio.ObtenerPorId(id);
@@ -48,7 +47,6 @@ namespace WebApplication1.Controllers
 
         // GET: Usuarios/Create
         //[Authorize(Policy = "Administrador")]
-        [AllowAnonymous]
         public ActionResult Create()
         {
             ViewBag.Roles = Usuario.ObtenerRoles();
@@ -57,9 +55,7 @@ namespace WebApplication1.Controllers
 
         // POST: Usuarios/Create
         [HttpPost]
-       
         //[Authorize(Policy = "Administrador")]
-        [AllowAnonymous]
         public ActionResult Create(Usuario u)
         {
             if (!ModelState.IsValid)
@@ -76,7 +72,7 @@ namespace WebApplication1.Controllers
                 u.Rol = User.IsInRole("Administrador") ? u.Rol : (int)enRoles.Empleado;
                 var nbreRnd = Guid.NewGuid();//posible nombre aleatorio
                 int res = repositorio.Alta(u);
-              /*  if (u.AvatarFile != null && u.Id > 0)
+               /*if (u.AvatarFile != null && u.Id > 0)
                 {
                     string wwwPath = environment.WebRootPath;
                     string path = Path.Combine(wwwPath, "Uploads");
@@ -156,23 +152,32 @@ namespace WebApplication1.Controllers
         [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var e = repositorio.ObtenerPorId(id);
+                return View(e);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
         }
 
         // POST: Usuarios/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         [Authorize(Policy = "Administrador")]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Usuario u)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                int res = repositorio.Baja(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
+                ViewBag.Error = ex.Message;
                 return View();
             }
         }

@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
 
         // POST: Inquilino/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Create(Inquilino inquilino)
         {
 
@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
 
         // POST: Inquilino/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public ActionResult Edit(int id, Inquilino e)
         {
             try
@@ -96,6 +96,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Inquilino/Delete/5
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id)
         {
             try
@@ -112,7 +113,7 @@ namespace WebApplication1.Controllers
 
         // POST: Inquilino/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Administrador")]
         public ActionResult Delete(int id, Inquilino e)
         {
             try

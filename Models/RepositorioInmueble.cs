@@ -252,6 +252,60 @@ namespace WebApplication1.Models
 		}
 
 
+		public IList<Inmueble> ListarInmueblesNoOcupados(DateTime FechaInicio, DateTime FechaFin)
+		{
+			IList<Inmueble> res = new List<Inmueble>();
+			Inmueble entidad = null;
+			using (SqlConnection connection = new SqlConnection(connectionString))
+
+
+			{
+				string sql = $"SELECT IdInmueble, Direccion, Ambientes, Superficie, Latitud, Longitud, Disponible, i.IdPropietario, p.Nombre, p.Apellido " +
+					         $"FROM Inmuebles i INNER JOIN Propietarios p ON i.IdPropietario = p.IdPropietario " +
+					         $"WHERE i.IdInmueble NOT IN " +
+					        $"(SELECT c.IdInmueble " +
+							 $"FROM contratos c " +
+							 "WHERE (c.FechaInicio BETWEEN @fechaInicio AND @fechaFin) " +
+							 "OR " +
+							 "( c.FechaFin BETWEEN @fechaInicio AND @fechaFin) " +
+							  "OR " +
+							 "( @fechaInicio BETWEEN c.FechaInicio AND c.FechaFin) " +
+
+							 "OR ( @fechaFin BETWEEN c.FechaInicio AND c.FechaFin))";
+
+				using (SqlCommand command = new SqlCommand(sql, connection))
+				{
+					command.Parameters.Add("@fechaInicio", SqlDbType.Date).Value = FechaInicio;
+					command.Parameters.Add("@fechaFin", SqlDbType.Date).Value = FechaFin;
+					command.CommandType = CommandType.Text;
+					connection.Open();
+					var reader = command.ExecuteReader();
+					while (reader.Read())
+					{
+						entidad = new Inmueble
+						{
+							IdInmueble = reader.GetInt32(0),
+							Direccion = reader.GetString(1),
+							Ambientes = reader.GetInt32(2),
+							Superficie = reader.GetInt32(3),
+							Latitud = reader.GetDecimal(4),
+							Longitud = reader.GetDecimal(5),
+							Disponible = reader.GetBoolean(6),
+							IdPropietario = reader.GetInt32(7),
+							Duenio = new Propietario
+							{
+								IdPropietario = reader.GetInt32(7),
+								Nombre = reader.GetString(8),
+								Apellido = reader.GetString(9),
+							}
+						};
+						res.Add(entidad);
+					}
+					connection.Close();
+				}
+			}
+			return res;
+		}
 
 	}
 }
