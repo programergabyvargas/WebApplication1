@@ -28,7 +28,7 @@ namespace WebApplication1.Models
 		[Required, DataType(DataType.Password)]
 		public string Clave { get; set; }
 		public string Avatar { get; set; }
-		public IFormFile AvatarFile { get; set; }		
+		public string AvatarFile { get; set; }		//Tengo que usar string para la api, hay conflicto cn sql
 		public int Rol { get; set; }
 
 		public string RolNombre => Rol > 0 ? ((enRoles)Rol).ToString() : "";

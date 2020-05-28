@@ -16,11 +16,15 @@ namespace WebApplication1.Controllers
         private readonly IConfiguration configuration;
         private readonly RepositorioPago repositorioPago;
         private readonly RepositorioContrato repositorioContrato;
+        private readonly RepositorioInquilino repositorioInquilino;
+        private readonly RepositorioInmueble repositorioInmueble;
         public PagosController(IConfiguration configuration)
         {
             this.configuration = configuration;
             repositorioPago = new RepositorioPago(configuration);
             repositorioContrato = new RepositorioContrato(configuration);
+            repositorioInmueble = new RepositorioInmueble(configuration);
+            repositorioInquilino = new RepositorioInquilino(configuration);
         }
         // GET: Pagos
         public ActionResult Index()

@@ -249,8 +249,10 @@ namespace WebApplication1.Models
 
 
             {
-                string sql = $"SELECT * " +
-                             $"FROM contratos c " +
+                string sql = $"SELECT IdContrato, FechaInicio, FechaFin, MontoMensual, c.IdInmueble, c.IdInquilino, i.Direccion, l.Apellido, l.Nombre " +
+                            "FROM contratos c " +
+                            "INNER JOIN inmuebles i ON c.IdInmueble = i.IdInmueble " +
+                            "INNER JOIN inquilinos l ON c.IdInquilino = l.IdInquilino "+
                              "WHERE (c.FechaInicio BETWEEN @fechaInicio AND @fechaFin) " +
                              "OR " +
                              "( c.FechaFin BETWEEN @fechaInicio AND @fechaFin) " +
@@ -276,7 +278,7 @@ namespace WebApplication1.Models
                             MontoMensual = reader.GetInt32(3),
                             IdInmueble = reader.GetInt32(4),
                             IdInquilino = reader.GetInt32(5),
-                           /* PropiedadAlquilada = new Inmueble
+                            PropiedadAlquilada = new Inmueble
                             {
                                 IdInmueble = reader.GetInt32(4),
                                 Direccion = reader.GetString(6),
@@ -287,7 +289,7 @@ namespace WebApplication1.Models
                                 IdInquilino = reader.GetInt32(5),
                                 Apellido = reader.GetString(7),
                                 Nombre = reader.GetString(8),
-                            }*/
+                            }
                         };
                         res.Add(e);
                     }

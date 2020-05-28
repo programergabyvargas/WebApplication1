@@ -10,7 +10,8 @@ namespace WebApplication1.Models
 {
 	public class Inmueble
 	{
-        [Display(Name = "Código")]
+		[Key]
+		[Display(Name = "Código")]
         public int IdInmueble { get; set; }
 		[Required]
 		public string Direccion { get; set; }

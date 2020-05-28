@@ -23,10 +23,10 @@
                 @Html.DisplayNameFor(model => model.MontoMensual)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdInmueble)
+                Propiedad
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdInquilino)
+               Inquilino
             </th>
             <th></th>
         </tr>
@@ -42,18 +42,18 @@
                 @Html.DisplayFor(modelItem => item.FechaFin)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MontoMensual)
+                $ @Html.DisplayFor(modelItem => item.MontoMensual)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdInmueble)
+                @Html.DisplayFor(modelItem => item.PropiedadAlquilada.Direccion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdInquilino)
+                @Html.DisplayFor(modelItem => item.Locatario.Apellido)
+                @Html.DisplayFor(modelItem => item.Locatario.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "Edit", new {  id=item.IdContrato }) |
+                @Html.ActionLink("Eliminar", "Delete", new {  id=item.IdContrato })
             </td>
         </tr>
 }

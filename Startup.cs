@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication1
 {
@@ -24,6 +25,8 @@ namespace WebApplication1
         {
             this.configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -46,7 +49,7 @@ namespace WebApplication1
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = configuration["TokenAuthentication:Issuer"],
                         ValidAudience = configuration["TokenAuthentication:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(configuration["TokenAuthentication:SecretKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration["TokenAuthentication:SecretKey"])),
                     };
                 });
             services.AddAuthorization(options =>
@@ -60,6 +63,13 @@ namespace WebApplication1
             Singleton objects are the same for every object and every request.
             */
             services.AddMvc();
+
+           
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<DataContext>(
+                options =>options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
+
             services.AddTransient<IRepositorio<Inquilino>, RepositorioInquilino>();
             services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();
             

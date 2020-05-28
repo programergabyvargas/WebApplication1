@@ -9,7 +9,8 @@ namespace WebApplication1.Models
 {
     public class Contrato
     {
-        
+        [Key]
+        [Display(Name = "Código")]
         public int IdContrato { get; set; }
         //[Required]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]

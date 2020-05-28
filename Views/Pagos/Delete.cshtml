@@ -11,27 +11,33 @@
     <h4>Pago</h4>
     <hr />
     <dl class="row">
-        
-        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NroPago)
+
+
+        <dt class="col-sm-2">
+           Número de Pago
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NroPago)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaPago)
+        <dt class="col-sm-2">
+            Fecha de Pago
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FechaPago)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Importe)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Importe)
         </dd>
-       
+        <dt class="col-sm-2">
+           Número de Contrato
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContratoAsociado.IdContrato)
+        </dd>
+
     </dl>
     
     <form asp-action="Delete">

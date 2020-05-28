@@ -23,3 +23,31 @@ WHERE (c.FechaInicio BETWEEN '2020-05-15' AND '2020-05-20')
  OR ( '2020-05-15' BETWEEN c.FechaInicio AND c.FechaFin) 
  OR ( '2020-05-20' BETWEEN c.FechaInicio AND c.FechaFin)
  );
+
+
+
+
+SELECT i.IdInmueble
+FROM inmuebles i
+WHERE i.IdInmueble NOT IN
+(SELECT c.IdInmueble
+FROM contratos c
+WHERE (c.FechaInicio BETWEEN '2020-05-15' AND '2020-05-20')
+ OR (c.FechaFin BETWEEN '2020-05-15' AND '2020-05-20') 
+ OR ( '2020-05-15' BETWEEN c.FechaInicio AND c.FechaFin) 
+ OR ( '2020-05-20' BETWEEN c.FechaInicio AND c.FechaFin)
+ )
+
+
+//consulta final
+SELECT IdInmueble, Direccion, Ambientes, Superficie, Latitud, Longitud, Disponible, i.IdPropietario, p.Nombre, p.Apellido
+FROM inmuebles i
+INNER JOIN propietarios p ON i.IdPropietario = p.IdPropietario
+WHERE i.IdInmueble NOT IN
+(SELECT c.IdInmueble
+FROM contratos c
+WHERE (c.FechaInicio BETWEEN '2020-05-15' AND '2020-05-20')
+ OR (c.FechaFin BETWEEN '2020-05-15' AND '2020-05-20') 
+ OR ( '2020-05-15' BETWEEN c.FechaInicio AND c.FechaFin) 
+ OR ( '2020-05-20' BETWEEN c.FechaInicio AND c.FechaFin)
+ )

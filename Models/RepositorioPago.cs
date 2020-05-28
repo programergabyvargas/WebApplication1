@@ -88,8 +88,15 @@ namespace WebApplication1.Models
 			IList<Pago> res = new List<Pago>();
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				string sql = $"SELECT IdPago, NroPago, FechaPago, Importe, IdContrato " +
-					         $"FROM Pagos";
+				string sql = $"SELECT IdPago, NroPago, FechaPago, Importe, c.IdContrato, c.IdInmueble, c.IdInquilino " +
+							 $"FROM Pagos p " +
+							 $"INNER JOIN Contratos c ON p.IdContrato = c.IdContrato "+
+							 $"INNER JOIN Inmuebles i ON c.IdInmueble = i.IdInmueble " +
+							 $"INNER JOIN inquilinos l ON c.IdInquilino = l.IdInquilino;";
+
+				         
+
+
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
 					command.CommandType = CommandType.Text;
@@ -105,7 +112,8 @@ namespace WebApplication1.Models
 							Importe = reader.GetInt32(3),
 							IdContrato = reader.GetInt32(4),
 							
-						};
+
+					     };
 						res.Add(p);
 					}
 					connection.Close();
@@ -119,7 +127,8 @@ namespace WebApplication1.Models
 			Pago p = null;
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				string sql = $"SELECT * FROM Pagos " +
+				string sql = $"SELECT IdPago, NroPago, FechaPago, Importe, p.IdContrato, c.IdContrato "+
+					         $"FROM Pagos p INNER JOIN Contratos c ON p.IdContrato = c.IdContrato " +
 					         $"WHERE IdPago=@id";
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
@@ -136,6 +145,11 @@ namespace WebApplication1.Models
 							FechaPago = reader.GetDateTime(2),
 							Importe = reader.GetInt32(3),
 							IdContrato = reader.GetInt32(4),
+							ContratoAsociado = new Contrato
+							{
+								IdContrato = reader.GetInt32(4),
+								
+							}
 						};
 					}
 					connection.Close();

@@ -13,7 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                  <input type="hidden" asp-for="IdPago" class="form-control" />
+                <input type="hidden" asp-for="IdPago" class="form-control" />
                 <span asp-validation-for="IdPago" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,8 +32,13 @@
                 <span asp-validation-for="Importe" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdContrato" class="control-label"></label>
-                <input readonly ="IdContrato" class="form-control" />
+                <label asp-for="IdPago" class="control-label">Identificador de Pago</label>
+                <input readonly asp-for="IdPago" class="form-control" />
+                <span asp-validation-for="IdPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdContrato" class="control-label">Número de Contrato</label>
+                <input readonly asp-for="IdContrato" class="form-control" />
                 <span asp-validation-for="IdContrato" class="text-danger"></span>
             </div>
             <div class="form-group">
