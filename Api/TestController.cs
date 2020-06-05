@@ -3,43 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using WebApplication1.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebApplication1.Api
+namespace WebApplication1.api
 {
     [Route("api/[controller]")]
     public class TestController : Controller
     {
-        private readonly DataContext contexto;
-        //private readonly Propietario propietario;
-        public TestController(DataContext context)
-        {
-            this.contexto = context;
-        }
         // GET: api/<controller>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Propietario>>> Get()
+        public async Task<IActionResult> Get()
         {
-
-            return contexto.Propietarios;
+            try
+            {
+                return Ok(new
+                {
+                    Value1 = "Éxito",
+                    Value2 = "Error",
+                    
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public ActionResult<Propietario> Get(int id)
+        public string Get(int id)
         {
-            if (id <= 0)
-                return NotFound();
-            
-                var res = contexto.Propietarios.FirstOrDefault(x => x.IdPropietario == id);
-            if (res != null)
-                return res;
-            else
-                return NotFound();
-                    
+            return "value";
         }
 
         // POST api/<controller>

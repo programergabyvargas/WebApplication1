@@ -14,10 +14,11 @@ using Microsoft.IdentityModel.Tokens;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WebApplication1.Api
+namespace WebApplication1.api
 {
+    [ApiController]
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+   // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PropietariosController : Controller
     {
         private readonly DataContext contexto;
@@ -34,8 +35,12 @@ namespace WebApplication1.Api
         {
             try
             {
-                var usuario = User.Identity.Name;
-                return Ok(contexto.Propietarios.SingleOrDefault(x => x.Email == usuario));
+                //  var usuario = User.Identity.Name;
+                // var res = contexto.Propietarios.Select(x => new { x.Nombre, x.Apellido, x.Email }).SingleOrDefault(x => x.Email == usuario);
+                //return Ok(res);
+                return Ok(contexto.Propietarios);
+
+                //return Ok(contexto.Propietarios);
             }
             catch (Exception ex)
             {
@@ -64,7 +69,7 @@ namespace WebApplication1.Api
         {
             try
             {
-                string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                     password: loginView.Clave,
                     salt: System.Text.Encoding.ASCII.GetBytes(config["Salt"]),
                     prf: KeyDerivationPrf.HMACSHA1,

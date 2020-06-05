@@ -49,7 +49,7 @@ namespace WebApplication1
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = configuration["TokenAuthentication:Issuer"],
                         ValidAudience = configuration["TokenAuthentication:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration["TokenAuthentication:SecretKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(configuration["TokenAuthentication:SecretKey"])),
                     };
                 });
             services.AddAuthorization(options =>
@@ -63,15 +63,16 @@ namespace WebApplication1
             Singleton objects are the same for every object and every request.
             */
             services.AddMvc();
-
-           
-
+            services.AddTransient<IRepositorio<Propietario>, RepositorioPropietario>();
+            //services.AddTransient<IRepositorioPropietario, RepositorioPropietario>();
+            services.AddTransient<IRepositorio<Inquilino>, RepositorioInquilino>();
+            //services.AddTransient<IRepositorioInmueble, RepositorioInmueble>();
+            services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DataContext>(
                 options =>options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
 
-            services.AddTransient<IRepositorio<Inquilino>, RepositorioInquilino>();
-            services.AddTransient<IRepositorioUsuario, RepositorioUsuario>();
+          
             
         }
 
