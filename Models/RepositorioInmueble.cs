@@ -94,7 +94,7 @@ namespace WebApplication1.Models
 		
 			
 			{
-				string sql = $"SELECT IdInmueble, Direccion, Ambientes, Superficie, Latitud, Longitud, Disponible, i.IdPropietario, p.Nombre, p.Apellido "+
+				string sql = $"SELECT IdInmueble, Direccion, Ambientes, Superficie, Latitud, Longitud, Disponible, Precio, i.IdPropietario, p.Nombre, p.Apellido "+
 					         $"FROM inmuebles i INNER JOIN propietarios p ON i.IdPropietario = p.IdPropietario ";	
 				using (SqlCommand command = new SqlCommand(sql, connection))
 				{
@@ -112,12 +112,13 @@ namespace WebApplication1.Models
                             Latitud = reader.GetDecimal(4),
                             Longitud = reader.GetDecimal(5),
 							Disponible = reader.GetBoolean(6),
-                            IdPropietario = reader.GetInt32(7),
+							Precio = reader.GetInt32(7),
+                            IdPropietario = reader.GetInt32(8),
                             Duenio = new Propietario
                             {
-                                IdPropietario = reader.GetInt32(7),
-                                Nombre = reader.GetString(8),
-                                Apellido = reader.GetString(9),
+                                IdPropietario = reader.GetInt32(8),
+                                Nombre = reader.GetString(9),
+                                Apellido = reader.GetString(10),
                             }
 						};
 						res.Add(e);

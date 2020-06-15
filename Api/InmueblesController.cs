@@ -31,7 +31,7 @@ namespace WebApplication1.api
             try
             {
                 var usuario = User.Identity.Name;
-                return Ok(contexto.Inmuebles.Include(e => e.Duenio).Where(e => e.Duenio.Email == usuario));
+                return Ok(contexto.Inmuebles.Where(e => e.Duenio.Email == usuario));
 
                 //return Ok(contexto.Inmuebles.Include(e => e.Duenio));
             }
@@ -63,7 +63,8 @@ namespace WebApplication1.api
             {
                 var usuario = User.Identity.Name;
                // return Ok(contexto.Inmuebles.Include(e => e.Duenio).Where(e => e.Duenio.Email == usuario).Single(e => e.IdInmueble == id));
-              return Ok(contexto.Inmuebles.SingleOrDefault(x => x.IdInmueble == id));
+                return Ok(contexto.Inmuebles.Single(e => e.IdInmueble == id));
+              //return Ok(contexto.Inmuebles.SingleOrDefault(x => x.IdInmueble == id));
             }
             catch (Exception ex)
             {
@@ -76,10 +77,11 @@ namespace WebApplication1.api
         public async Task<IActionResult> Post(Inmueble entidad)
         {
             try
-            {
+            {   
                 if (ModelState.IsValid)
                 {
-                    entidad.IdPropietario = contexto.Propietarios.Single(e => e.Email == User.Identity.Name).IdPropietario;
+                    entidad.IdPropietario = contexto.Propietarios.AsNoTracking().Single(e => e.Email == User.Identity.Name).IdPropietario;
+                    entidad.Duenio = null; // Agregue null a duenio
                     contexto.Inmuebles.Add(entidad);
                     contexto.SaveChanges();
                     return CreatedAtAction(nameof(Get), new { id = entidad.IdInmueble }, entidad);
@@ -98,7 +100,8 @@ namespace WebApplication1.api
         {
             try
             {
-                if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().Include(e=>e.Duenio).FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null)
+                if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().Include(e => e.Duenio).FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null)
+                 // if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().Include(e=>e.Duenio).FirstOrDefault(e => e.Duenio.Email == User.Identity.Name) != null)
                 {
                     entidad.IdInmueble = id;
                     contexto.Inmuebles.Update(entidad);
@@ -160,7 +163,7 @@ namespace WebApplication1.api
         {
             try
             {
-                return Ok("anduvo");
+                return Ok("anduvogfhfghf");
             }
             catch (Exception ex)
             {

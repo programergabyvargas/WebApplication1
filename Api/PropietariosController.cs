@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,7 +19,7 @@ namespace WebApplication1.api
 {
     [ApiController]
     [Route("api/[controller]")]
-   // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PropietariosController : Controller
     {
         private readonly DataContext contexto;
@@ -35,10 +36,11 @@ namespace WebApplication1.api
         {
             try
             {
-                //  var usuario = User.Identity.Name;
-                // var res = contexto.Propietarios.Select(x => new { x.Nombre, x.Apellido, x.Email }).SingleOrDefault(x => x.Email == usuario);
-                //return Ok(res);
-                return Ok(contexto.Propietarios);
+                  var usuario = User.Identity.Name;
+                // var res = contexto.Propietarios.Select(x => new { x.IdPropietario, x.Nombre, x.Apellido, x.Dni, x.Telefono, x.Email, x.Clave }).SingleOrDefault(x => x.Email == usuario);
+                var res = contexto.Propietarios.SingleOrDefault(x => x.Email == usuario);
+                return Ok(res);
+                //return Ok(contexto.Propietarios);
 
                 //return Ok(contexto.Propietarios);
             }
@@ -128,10 +130,27 @@ namespace WebApplication1.api
         }
 
         // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+       // [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Propietario entidad)
         {
-            //contexto.Propietarios.Update()
+            try
+            {
+                var usuario = User.Identity.Name;
+                // if (ModelState.IsValid && contexto.Propietarios.AsNoTracking().FirstOrDefault(e => e.IdPropietario == id && e.Email == User.Identity.Name) != null)
+
+                if (ModelState.IsValid && contexto.Propietarios.AsNoTracking().FirstOrDefault(e => e.Email == User.Identity.Name) != null)
+                {
+                    //entidad.IdPropietario = id;
+                    contexto.Propietarios.Update(entidad);
+                    contexto.SaveChanges();
+                    return Ok(entidad);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         // DELETE api/<controller>/5
