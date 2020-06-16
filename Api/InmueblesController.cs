@@ -100,7 +100,7 @@ namespace WebApplication1.api
         {
             try
             {
-                if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().Include(e => e.Duenio).FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null)
+                if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null)
                  // if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().Include(e=>e.Duenio).FirstOrDefault(e => e.Duenio.Email == User.Identity.Name) != null)
                 {
                     entidad.IdInmueble = id;
