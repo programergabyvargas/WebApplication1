@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace WebApplication1.api
 {
+    [ApiController]
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class InmueblesController : Controller
@@ -100,15 +101,27 @@ namespace WebApplication1.api
         {
             try
             {
-                if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null)
-                 // if (ModelState.IsValid && contexto.Inmuebles.AsNoTracking().Include(e=>e.Duenio).FirstOrDefault(e => e.Duenio.Email == User.Identity.Name) != null)
+                Inmueble inmueble = null;
+               //var usuario = User.Identity.Name;
+                if (ModelState.IsValid)
                 {
-                    entidad.IdInmueble = id;
-                    contexto.Inmuebles.Update(entidad);
-                    contexto.SaveChanges();
-                    return Ok(entidad);
+                    if (contexto.Inmuebles.AsNoTracking().Include(e => e.Duenio).FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null) {
+                        inmueble = contexto.Inmuebles.SingleOrDefault(x => x.IdInmueble == entidad.IdInmueble);
+                        inmueble.IdInmueble = entidad.IdInmueble;
+                        inmueble.Direccion = entidad.Direccion;
+                        inmueble.Ambientes = entidad.Ambientes;
+                        inmueble.Tipo = entidad.Tipo;
+                        inmueble.Precio = entidad.Precio;
+                        inmueble.Disponible = entidad.Disponible;
+
+                        //entidad.IdInmueble = id;
+                        //contexto.Inmuebles.Update(entidad);
+                        contexto.Inmuebles.Update(inmueble);
+                        contexto.SaveChanges();
+                        return Ok(inmueble);
+                    }
                 }
-                return BadRequest();
+                return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
