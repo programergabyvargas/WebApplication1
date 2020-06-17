@@ -107,7 +107,7 @@ namespace WebApplication1.api
                 {
                     if (contexto.Inmuebles.AsNoTracking().Include(e => e.Duenio).FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null) {
                         inmueble = contexto.Inmuebles.SingleOrDefault(x => x.IdInmueble == entidad.IdInmueble);
-                        inmueble.IdInmueble = entidad.IdInmueble;
+                        //inmueble.IdInmueble = entidad.IdInmueble;
                         inmueble.Direccion = entidad.Direccion;
                         inmueble.Ambientes = entidad.Ambientes;
                         inmueble.Tipo = entidad.Tipo;
