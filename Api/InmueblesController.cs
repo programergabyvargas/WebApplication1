@@ -106,20 +106,23 @@ namespace WebApplication1.api
                 if (ModelState.IsValid)
                 {
                     if (contexto.Inmuebles.AsNoTracking().Include(e => e.Duenio).FirstOrDefault(e => e.IdInmueble == id && e.Duenio.Email == User.Identity.Name) != null) {
-                        inmueble = contexto.Inmuebles.SingleOrDefault(x => x.IdInmueble == entidad.IdInmueble);
-                        //inmueble.IdInmueble = entidad.IdInmueble;
+                        inmueble = contexto.Inmuebles.SingleOrDefault(x => x.IdInmueble == id);
+                        //inmueble.IdInmueble = id;
                         inmueble.Direccion = entidad.Direccion;
                         inmueble.Ambientes = entidad.Ambientes;
+                        inmueble.Latitud = entidad.Latitud;
+                        inmueble.Longitud = entidad.Longitud;
                         inmueble.Tipo = entidad.Tipo;
+                        inmueble.Uso = entidad.Uso;
+                        inmueble.Superficie = entidad.Superficie;
                         inmueble.Precio = entidad.Precio;
                         inmueble.Disponible = entidad.Disponible;
 
-                        //entidad.IdInmueble = id;
-                        //contexto.Inmuebles.Update(entidad);
                         contexto.Inmuebles.Update(inmueble);
                         contexto.SaveChanges();
                         return Ok(inmueble);
                     }
+                    return BadRequest(ModelState +"------");
                 }
                 return BadRequest(ModelState);
             }

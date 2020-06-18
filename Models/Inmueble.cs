@@ -31,6 +31,8 @@ namespace WebApplication1.Models
 		public int Precio { get; set; }
 		[Required]
 		public string Tipo { get; set; }
+		[Required]
+		public string Uso { get; set; }
 
 	}
 }
